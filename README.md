@@ -41,31 +41,31 @@ Statistical Process Control (SPC) analysis of a DC motor manufacturing process, 
 
 ## Step 1 — X-bar and R Charts (Initial)
 
-Both manual and Minitab control charts were constructed to evaluate process stability.
+Both charts were constructed manually and verified with Minitab. The **red points** indicate out-of-control batches detected by Minitab's violation rules.
 
-![Initial X-bar and R Charts](docs/images/initial_xbar_r_charts.jpg)
+![Xbar-R Chart Initial](docs/images/xbar_r_initial_minitab.jpg)
 
-**Findings — Process is NOT in statistical control:**
-- **R Chart:** Batch B16 (R = 0.380) exceeds UCL = 0.326 → abnormal within-batch variability
-- **X-bar Chart:** Batches B13 (X̄ = 4.720) and B19 (X̄ = 4.650) exceed UCL = 4.606 → process mean shifted upward
+**Findings — process is NOT in statistical control:**
+- **X-bar Chart:** B13 (X̄ = 4.720) and B19 (X̄ = 4.650) exceed UCL = 4.606 → process mean shifted upward
+- **R Chart:** B16 (R = 0.380) exceeds UCL = 0.326 → abnormal within-batch variability
 
 ---
 
 ## Step 2 — P-Chart (Proportion Defective)
 
-The p-chart was constructed manually and verified with Minitab to track the defect rate across all batches.
+The p-chart tracks the proportion of defective motors across all 30 batches.
 
-![P-Chart Initial](docs/images/p_chart_initial.jpg)
+![P-Chart Initial](docs/images/p_chart_initial_minitab.jpg)
 
-**p̄ = 0.10** (10% average defect rate) · UCL = 0.5025 · LCL = 0
+**p̄ = 0.10** · UCL = 0.5025 · LCL = 0
 
-Batches **B14** and **B19** exceed the UCL — confirming that process instability in the X-bar/R charts directly drives high defect rates in those batches.
+Batches **B14** and **B19** spike above the UCL (p = 0.60) — confirming that the process instability identified in the X-bar/R charts directly drives high defect rates.
 
 ---
 
 ## Step 3 — Root Cause Analysis (Fishbone Diagram)
 
-A Fishbone (Ishikawa) diagram was developed to investigate the causes of instability in batches B13, B14, B16, and B19 across six categories (6M framework).
+A Fishbone (Ishikawa) diagram investigated the causes of instability across the 6M framework, targeting out-of-control batches B13, B14, B16, and B19.
 
 ![Fishbone Diagram](docs/images/fishbone_diagram.jpg)
 
@@ -82,9 +82,9 @@ A Fishbone (Ishikawa) diagram was developed to investigate the causes of instabi
 
 ## Step 4 — Pareto Analysis
 
-The Pareto chart ranks all causes by frequency to identify the vital few that drive most defects.
+The Pareto chart ranks defect causes by frequency to identify the vital few that drive most of the problem.
 
-![Pareto Chart](docs/images/pareto_chart_minitab.jpg)
+![Pareto Chart](docs/images/pareto_minitab.jpg)
 
 | Cause | Frequency | Cumulative % |
 |---|---|---|
@@ -100,70 +100,48 @@ The Pareto chart ranks all causes by frequency to identify the vital few that dr
 
 ## Step 5 — Corrective Actions
 
-Based on the Fishbone and Pareto results, targeted improvements were implemented:
-
-- **Thermal Control** — Improved cooling systems, enhanced workshop ventilation, real-time temperature monitoring during production
-- **Material QC** — Standardized insulation coating processes, rigorous raw material inspection, supplier quality verification
-- **Equipment Maintenance** — Preventive maintenance schedules, replacement of worn bearings, instrument calibration
+- **Thermal Control** — Improved cooling systems, enhanced workshop ventilation, real-time temperature monitoring
+- **Material QC** — Standardized insulation coating, rigorous raw material inspection, supplier quality verification
+- **Equipment Maintenance** — Preventive maintenance schedules, worn bearing replacement, instrument calibration
 - **Operator Training** — SPC training programs, clear escalation procedures for abnormal conditions
 
 ---
 
 ## Step 6 — Revised Control Charts (After Improvement)
 
-After removing the out-of-control batches (B13, B14, B16, B19) and implementing corrective actions, control limits were recalculated.
+Out-of-control batches (B13, B14, B16, B19) were removed and control limits recalculated. The final X-bar chart confirms the process mean is fully stable.
 
-### Final X-bar Chart — All Batches in Control
-
-![Final X-bar Chart](docs/images/final_xbar_chart.jpg)
-
-All 27 remaining subgroup means lie within the revised control limits (UCL = 4.5987, LCL = 4.4214) ✓
-
-### Revised P-Chart — Defect Rate Under Control
-
-![Revised P-Chart](docs/images/revised_p_chart.jpg)
-
-All defect proportions within revised limits (UCL = 0.3277). **Revised p̄ = 4.62%** — down from 10.0% ✓
+| Final X-bar Chart | Revised P-Chart |
+|:---:|:---:|
+| ![Final X-bar](docs/images/xbar_final_minitab.jpg) | ![Revised P-Chart](docs/images/p_chart_revised_minitab.jpg) |
+| All 27 remaining batches within UCL=4.5867 / LCL=4.4214 ✓ | All defect proportions within UCL=0.3277 · Revised p̄ = 4.62% (down from 10.0%) ✓ |
 
 ---
 
-## Step 7 — Normality Test (Anderson-Darling)
+## Step 7 — Process Capability Analysis (Cpk)
 
-The normality of the data was verified before performing Cpk analysis using a Minitab Probability Plot.
+The Minitab Capability Report evaluates whether the improved process reliably produces motors within the 4.20–4.80 Ω specification range.
 
-| Result | Value |
-|---|---|
-| AD Statistic | 0.511 |
-| **p-value** | **0.178 > 0.05** |
-| Conclusion | **Normality assumption satisfied ✓** |
-
----
-
-## Step 8 — Process Capability Analysis (Cpk)
-
-The Minitab Process Capability Report evaluates whether the improved process reliably produces motors within the 4.20–4.80 Ω specification range.
-
-![Process Capability Report](docs/images/capability_report.jpg)
+![Capability Report](docs/images/capability_report.jpg)
 
 | Parameter | Value |
 |---|---|
 | LSL | 4.20 Ω |
 | USL | 4.80 Ω |
-| Process Mean (X̄) | 4.503 Ω |
-| σ = R̄ / d₂ | 0.0628 Ω |
+| Process Mean | 4.503 Ω |
 | **Cpk (Manual)** | **1.57** |
-| **Cpk (Minitab)** | **≈ 1.69** |
+| **Cpk (Minitab)** | **1.69** |
 
 > Both values exceed 1.33 → **HIGHLY CAPABLE PROCESS ✓**  
-> Process is well-centered within the specification range with minimal variation.
+> The bell curve is well-centered within the spec limits with minimal spread.
 
 ---
 
-## Step 9 — Run Chart
+## Step 8 — Run Chart
 
-The run chart plots subgroup means in chronological order to detect any trends, shifts, or patterns over time.
+The run chart plots subgroup means in chronological order to detect trends, shifts, or patterns over time.
 
-![Run Charts](docs/images/run_charts.jpg)
+![Run Chart](docs/images/run_chart_minitab.jpg)
 
 Subgroup means fluctuate randomly around the process mean — **no trends, shifts, or patterns** detected after corrective actions ✓
 
@@ -175,9 +153,8 @@ Subgroup means fluctuate randomly around the process mean — **no trends, shift
 |---|---|---|
 | R Chart | **B16 out of control** (R = 0.380 > UCL) | All points within limits ✓ |
 | X-bar Chart | **B13 & B19 out of control** | All points within limits ✓ |
-| P-Chart | **B14 & B19 out of control** (p = 0.60) | All points within limits ✓ |
+| P-Chart | **B14 & B19** exceed UCL (p = 0.60) | All points within limits ✓ |
 | Average Defect Rate | **10.0%** | **4.62%** (−54%) ✓ |
-| Statistical Control | NOT in control | FULLY in control ✓ |
 | Process Capability (Cpk) | Not reliable | **1.57 – 1.69 (Highly Capable)** ✓ |
 
 ---
@@ -197,6 +174,6 @@ dc-motor-quality-control-spc/
 
 ## Tools Used
 
-- **Minitab** — Control charts, normality test, Pareto chart, process capability
+- **Minitab** — Control charts, normality test, Pareto chart, process capability report
 - **Manual Calculations** — All SPC formulas by hand using Appendix VI constants (A₂, D₃, D₄, d₂)
 - **SPC Methods** — X-bar/R charts, P-chart, Fishbone (6M), Pareto, Anderson-Darling, Cpk, Run chart
