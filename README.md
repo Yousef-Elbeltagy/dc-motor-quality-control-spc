@@ -38,9 +38,9 @@ The Minitab chart immediately reveals the process is **out of statistical contro
 
 | Chart | Out-of-Control Batch | What It Means |
 |---|---|---|
-| **R Chart** | **B16** — range = 0.380 > UCL = 0.326 | Abnormal variation *within* that batch — something caused inconsistent resistance among the 5 motors |
+| **R Chart** | **B16** — range = 0.380 > UCL = 0.326 | Abnormal variation *within* that batch — inconsistent resistance among the 5 motors |
 | **X-bar Chart** | **B13** — mean = 4.720 Ω | Process mean shifted upward — all 5 motors in this batch wound too tightly |
-| **X-bar Chart** | **B19** — mean = 4.650 Ω | Same pattern — another batch where the process mean drifted out of spec |
+| **X-bar Chart** | **B19** — mean = 4.650 Ω | Same pattern — process mean drifted out of spec |
 
 ### P-Chart — Defect Rate Across All Batches
 
@@ -48,7 +48,7 @@ The p-chart checks what percentage of motors are defective in each batch (p-bar 
 
 ![Minitab P-Chart Initial](docs/images/minitab_p_chart_initial.png)
 
-**B14 and B19** both spike to p = 0.60 — meaning **3 out of 5 motors** in each of those batches were defective. This directly confirms the instability seen in the X-bar chart: when the process mean shifts out of control, defect rates spike immediately.
+**B14 and B19** both spike to p = 0.60 — meaning **3 out of 5 motors** in each of those batches were defective. This directly confirms the instability seen in the X-bar chart.
 
 **Summary:** The process is unstable. Batches B13, B14, B16, and B19 all show abnormal behavior. The question is — *why?*
 
@@ -58,22 +58,22 @@ The p-chart checks what percentage of motors are defective in each batch (p-bar 
 
 ### Fishbone (Ishikawa) Diagram
 
-A cause-and-effect analysis was built targeting the four problem batches (B13, B14, B16, B19) across the 6M framework: Machine, Material, Measurement, Man/Method, Environment, Mother Nature.
+A cause-and-effect analysis was built targeting the four problem batches (B13, B14, B16, B19) across the 6M framework.
 
 ![Fishbone Diagram](docs/images/fishbone_diagram.png)
 
 | Category | Key Causes Identified |
 |---|---|
-| **Machine** | Cooling system failure, M2 bearing wear, no preventive maintenance schedule |
+| **Machine** | Cooling system failure, M2 bearing wear, no preventive maintenance |
 | **Environment** | High ambient temperature (38°C in B11–B13), inadequate ventilation, no thermal barriers |
-| **Material** | Wire resistance variation, insulation coat QC failures, supply chain delays causing material substitution |
+| **Material** | Wire resistance variation, insulation coat QC failures, supply chain inconsistency |
 | **Measurement** | No inline WR sensor, uncalibrated equipment, manual data recording errors |
 | **Man / Method** | Shift handover gaps, no escalation protocol, operator fatigue, inadequate training |
 | **Mother Nature** | Humidity variation, seasonal temperature peaks coinciding with B13 and B19 |
 
 ### Pareto Chart — Prioritizing the Causes
 
-The Pareto chart ranks all causes by frequency to identify the **vital few** that drive most of the defects.
+The Pareto chart ranks all causes by frequency to identify the **vital few** that drive most defects.
 
 ![Minitab Pareto Chart](docs/images/minitab_pareto.jpeg)
 
@@ -85,7 +85,7 @@ The Pareto chart ranks all causes by frequency to identify the **vital few** tha
 | Operator/Method | 9.1% | 90.9% |
 | Measurement | 9.1% | 100.0% |
 
-> **Thermal Issues + Material Defects together account for 72.7% of all defects.** These two causes are the targets for corrective action.
+> **Thermal Issues + Material Defects = 72.7% of all defects.** These are the primary targets for corrective action.
 
 ---
 
@@ -93,50 +93,47 @@ The Pareto chart ranks all causes by frequency to identify the **vital few** tha
 
 Based on the Fishbone and Pareto analysis, the following corrective actions were implemented:
 
-**Thermal Control**
-- Improved cooling systems installed on the winding machines
-- Workshop ventilation enhanced to maintain stable ambient temperature
-- Real-time temperature monitoring added to the production line
-
-**Material Quality**
-- Insulation coating process standardized and documented
-- Raw material incoming inspection tightened
-- Supplier quality verification introduced to eliminate batch-to-batch variation
-
-**Equipment & Maintenance**
-- Preventive maintenance schedule established for all winding machines
-- Worn M2 bearings identified and replaced
-- All measurement instruments calibrated
-
-**Process & People**
-- SPC training provided to operators — escalation procedures defined
-- Shift handover documentation improved to prevent communication gaps
+- **Thermal Control** — Improved cooling systems, enhanced ventilation, real-time temperature monitoring
+- **Material Quality** — Standardized insulation coating, tightened incoming inspection, supplier verification
+- **Equipment & Maintenance** — Preventive maintenance schedules, worn M2 bearing replacement, instrument calibration
+- **Process & People** — SPC operator training, escalation procedures, improved shift handover documentation
 
 ---
 
-## Phase 4 — Proving the Fix Worked
+## Phase 4 — Verifying the Fix
 
-### Final X-bar Chart — Process Mean Fully Stable
+### Step 1 — Revised Control Charts (After Removing B16)
 
-After removing B16, B13, and B19 (confirmed assignable causes) and applying corrective actions, the X-bar chart was redrawn with new control limits (UCL = 4.599 Ω, LCL = 4.421 Ω).
+B16 was identified as the cause of excessive within-batch variation. After removing it, new control limits were calculated and both charts were redrawn.
+
+![Revised Xbar-R Minitab](docs/images/revised_xbar_r_minitab.jpeg)
+
+**R Chart:** All remaining batches now lie within the revised UCL = 0.309 — **variation is stable** ✓  
+**X-bar Chart:** B13 and B19 still exceed the control limits — the process mean still needs attention
+
+This shows the improvement is **iterative**: fixing the variation (R chart) was step one.
+
+### Step 2 — Final X-bar Chart (After Removing B13, B16, and B19)
+
+After applying additional corrective actions targeting the thermal and material root causes, B13 and B19 were also removed. The X-bar chart was redrawn with final limits (UCL = 4.599 Ω, LCL = 4.421 Ω).
 
 ![Final Xbar Minitab](docs/images/final_xbar_minitab.png)
 
-**All 27 remaining batches lie within the control limits** — no trends, no shifts, no out-of-control points. The process mean is stable at X-bar = 4.504 Ω, well-centered within the specification range.
+**All 27 remaining batches lie within the control limits.** The process mean is stable at X-bar = 4.504 Ω, well-centered within the specification range.
 
-### Revised P-Chart — Defect Rate Dropped
+### Step 3 — Revised P-Chart (Defect Rate After Improvement)
 
-After removing batches B13, B14, B16, and B19, the defect rate was recalculated and a new p-chart was built.
+After removing batches B13, B14, B16, and B19, the defect rate was recalculated.
 
 ![Revised P-Chart Minitab](docs/images/revised_p_chart_minitab.png)
 
-| Metric | Before Improvement | After Improvement |
+| Metric | Before | After |
 |---|---|---|
 | Average Defect Rate | 10.0% | **4.62%** |
 | UCL | 0.5025 | 0.3277 |
 | Out-of-Control Batches | B14, B19 | **None** |
 
-All 26 remaining batches are within the new control limits. Defect rate dropped by **54%**.
+Defect rate dropped by **54%**. All 26 remaining batches are within limits.
 
 ---
 
@@ -144,7 +141,7 @@ All 26 remaining batches are within the new control limits. Defect rate dropped 
 
 ### Normality Test (Anderson-Darling)
 
-Before running Cpk, normality of the data must be confirmed. The Minitab probability plot shows data points closely following the normal reference line.
+Before running Cpk, normality must be confirmed. The Minitab probability plot shows data points closely following the normal reference line.
 
 ![Normality AD Test](docs/images/normality_ad_test.png)
 
@@ -156,7 +153,7 @@ Before running Cpk, normality of the data must be confirmed. The Minitab probabi
 
 ### Process Capability Report (Cpk)
 
-With a stable, normal process confirmed, the capability analysis determines whether the process can reliably produce motors within the 4.20–4.80 Ω specification range.
+The capability analysis determines whether the improved process reliably produces motors within the 4.20–4.80 Ω specification range.
 
 ![Minitab Capability Report](docs/images/capability_report.png)
 
@@ -166,33 +163,32 @@ With a stable, normal process confirmed, the capability analysis determines whet
 | USL | 4.80 Ω |
 | Process Mean | 4.503 Ω |
 | Standard Deviation | 0.0628 Ω |
-| **Cpk (Manual Calculation)** | **1.57** |
+| **Cpk (Manual)** | **1.57** |
 | **Cpk (Minitab)** | **1.69** |
 
-> Both values exceed 1.33 → **HIGHLY CAPABLE PROCESS**  
-> The process is well-centered in the spec range with minimal variation. Expected defect rate: essentially zero (PPM ≈ 0.32).
+> Both values exceed 1.33 → **HIGHLY CAPABLE PROCESS** — expected defect rate near zero (PPM ≈ 0.32)
 
 ### Run Chart — Stable Over Time
 
-The run chart confirms the process shows no upward or downward trends, no prolonged shifts, and no cyclic patterns — random fluctuation only.
+The run chart confirms no trends, no shifts, and no cyclic patterns — random fluctuation only.
 
-![Minitab Run Chart](docs/images/run_chart_minitab.jpeg)
+![Minitab Run Chart](docs/images/run_chart_minitab.png)
 
-The run chart is consistent with the final X-bar chart — the process is stable not just at a single point in time, but **across all 27 batches chronologically**.
+The process is stable not just at a single point in time, but **across all 27 batches chronologically**.
 
 ---
 
 ## Results Summary — Before vs. After
 
-| Metric | Before Improvement | After Improvement |
+| Metric | Before | After |
 |---|---|---|
-| R Chart | **B16 out of control** (abnormal variation) | All points within limits |
-| X-bar Chart | **B13 & B19 out of control** (mean shifted) | All 27 batches within limits |
-| P-Chart | **B14 & B19** — defect rate = 60% | All batches within limits |
-| Average Defect Rate | **10.0%** | **4.62%** (−54%) |
-| Statistical Control | NOT in control | FULLY in control |
-| Normality | — | Confirmed (p = 0.178) |
-| Process Capability Cpk | Not reliable | **1.57 – 1.69 (Highly Capable)** |
+| R Chart | **B16 out of control** (excessive variation) | All points within limits ✓ |
+| X-bar Chart | **B13 & B19 out of control** (mean shifted) | All 27 batches within limits ✓ |
+| P-Chart | **B14 & B19** at p = 0.60 (60% defective) | All batches within limits ✓ |
+| Average Defect Rate | **10.0%** | **4.62%** (−54%) ✓ |
+| Statistical Control | NOT in control | FULLY in control ✓ |
+| Normality | — | Confirmed (p = 0.178) ✓ |
+| Process Capability Cpk | Not reliable | **1.57 – 1.69 (Highly Capable)** ✓ |
 
 ---
 
@@ -211,17 +207,18 @@ The run chart is consistent with the final X-bar chart — the process is stable
 ```
 dc-motor-quality-control-spc/
 ├── data/
-│   └── DCMotor_QC_Dataset.xlsx      # Raw data: 30 batches x 5 motors, WR + defect counts
+│   └── DCMotor_QC_Dataset.xlsx
 └── docs/
-    ├── QC_Report.pdf                # Full report with all manual calculations and Minitab output
+    ├── QC_Report.pdf
     └── images/
-        ├── minitab_xbar_r_initial.png    # Minitab Xbar-R — B13, B16, B19 out of control
-        ├── minitab_p_chart_initial.png   # Minitab P-chart — B14, B19 exceed UCL
-        ├── fishbone_diagram.png          # Root cause analysis (6M Ishikawa)
-        ├── minitab_pareto.jpeg           # Pareto — thermal 45.5%, material 27.3%
-        ├── final_xbar_minitab.png        # Final Xbar — all 27 batches in control
-        ├── revised_p_chart_minitab.png   # Revised P-chart — defect rate 4.62%
-        ├── normality_ad_test.png         # Anderson-Darling — p=0.178, normality confirmed
-        ├── capability_report.png         # Minitab Cpk report — Cpk=1.69
-        └── run_chart_minitab.jpeg        # Run chart — no trends or patterns
+        ├── minitab_xbar_r_initial.png      # Initial Xbar-R — B13, B16, B19 out of control
+        ├── minitab_p_chart_initial.png     # Initial P-chart — B14, B19 exceed UCL
+        ├── fishbone_diagram.png            # Root cause analysis (6M Ishikawa)
+        ├── minitab_pareto.jpeg             # Pareto — thermal 45.5%, material 27.3%
+        ├── revised_xbar_r_minitab.jpeg     # Revised charts — R stable, X-bar still has B13/B19
+        ├── final_xbar_minitab.png          # Final Xbar — all 27 batches in control
+        ├── revised_p_chart_minitab.png     # Revised P-chart — defect rate 4.62%
+        ├── normality_ad_test.png           # Anderson-Darling — p=0.178 confirmed
+        ├── capability_report.png           # Minitab Cpk = 1.69
+        └── run_chart_minitab.png           # Run chart — no trends or patterns
 ```
