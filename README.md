@@ -106,7 +106,7 @@ Based on the Fishbone and Pareto analysis, the following corrective actions were
 
 B16 was identified as the cause of excessive within-batch variation. After removing it, new control limits were calculated and both charts were redrawn.
 
-![Revised Xbar-R Minitab](docs/images/revised_xbar_r_minitab.jpeg)
+![Revised Xbar-R Minitab](docs/images/revised_xbar_r_minitab.png)
 
 **R Chart:** All remaining batches now lie within the revised UCL = 0.309 — **variation is stable** ✓  
 **X-bar Chart:** B13 and B19 still exceed the control limits — the process mean still needs attention
@@ -215,7 +215,7 @@ dc-motor-quality-control-spc/
         ├── minitab_p_chart_initial.png     # Initial P-chart — B14, B19 exceed UCL
         ├── fishbone_diagram.png            # Root cause analysis (6M Ishikawa)
         ├── minitab_pareto.jpeg             # Pareto — thermal 45.5%, material 27.3%
-        ├── revised_xbar_r_minitab.jpeg     # Revised charts — R stable, X-bar still has B13/B19
+        ├── revised_xbar_r_minitab.png      # Revised charts — R stable, X-bar still has B13/B19
         ├── final_xbar_minitab.png          # Final Xbar — all 27 batches in control
         ├── revised_p_chart_minitab.png     # Revised P-chart — defect rate 4.62%
         ├── normality_ad_test.png           # Anderson-Darling — p=0.178 confirmed
