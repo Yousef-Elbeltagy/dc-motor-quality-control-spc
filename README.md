@@ -32,7 +32,7 @@ A DC motor manufacturing line produces **DCM-750 motors**. For each motor, windi
 
 The first step is to check whether the process mean (X-bar chart) and within-batch variation (R chart) are stable. Control limits are calculated from the data: UCL = 4.606 Ω, LCL = 4.428 Ω for the X-bar chart, and UCL = 0.326 for the R chart.
 
-![Minitab Xbar-R Chart](docs/images/minitab_xbar_r_initial.png)
+![Minitab Xbar-R Chart](docs/images/minitab_xbar_r_initial.jpeg)
 
 The Minitab chart immediately reveals the process is **out of statistical control**:
 
